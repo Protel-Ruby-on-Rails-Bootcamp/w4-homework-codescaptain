@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+My project link is [Like Medium](https://like-medium.herokuapp.com/).
