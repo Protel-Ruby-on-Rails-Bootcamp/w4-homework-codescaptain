@@ -1,0 +1,7 @@
+<h1>Profile</h1>
+<p>Username : <%= @user.nickname %></p>
+<p>Email : <%= @user.email %></p>
+<h2>Posts</h2>
+<%@posts.each do |post|%>
+	<p><b><%= link_to post.title, post_path(post) %></b> created at <%= post.created_at %></p>
+<% end %>

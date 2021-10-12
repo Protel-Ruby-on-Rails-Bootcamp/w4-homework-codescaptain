@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LikeMedium</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <p><%= link_to 'HomePage 🏠', root_path %></p>
+    <p>
+      <% if user_signed_in? %>
+       <b><%= link_to 'Logout', destroy_user_session_path, method: :delete %></b> 
+       | 
+       <b><%= current_user.nickname %></b>
+       | 
+       <b><%= link_to 'Edit Profile', edit_user_registration_path %></b>
+       |
+       <b><%= link_to 'Dashboard', dashboard_index_path %></b>
+       |
+       <b><%= link_to 'New Post', new_post_path %></b>
+
+      <% else %>
+      <% end %>
+    </p>
+    <%= yield %>
+  </body>
+</html>
