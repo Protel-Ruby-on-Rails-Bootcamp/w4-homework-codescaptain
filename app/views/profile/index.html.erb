@@ -1,7 +1,23 @@
 <h1>Profile</h1>
 <p>Username : <%= @user.nickname %></p>
 <p>Email : <%= @user.email %></p>
+
+<div id='followers'>
+  <b>Following(<%= @user.following.count %>)</b>
+  <b>Follower(<%= @user.followers.count %>)</b>
+</div>
+
+<% if user_signed_in? && @user != current_user %>
+  <p><%= render 'follow_form' %></p>
+<% end %>
+
 <h2>Posts</h2>
 <%@posts.each do |post|%>
 	<p><b><%= link_to post.title, post_path(post) %></b> created at <%= post.created_at %></p>
+<% end %>
+
+<h2>Accepted Comments</h2>
+<% @comments.each do |comment|%>
+	<p> <b>Title:</b> <%= comment.title %></p>
+  <p> <b> Post Name:</b> <%= comment.post.title %>
 <% end %>

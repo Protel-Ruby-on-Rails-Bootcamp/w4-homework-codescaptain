@@ -2,11 +2,7 @@
 <p id="notice"><%= notice %></p>
 <% @comments.each do |comment| %>
 	<p><b><%= comment.user.nickname %></b> wrote a comment to your <b><i><%= @post.title %> </i></b> article.
-	<% if comment.accepted %>
-       Accepted ✅
-	<% else %>	
-	<%= link_to 'Click here', post_comment_path(@post, comment) %> to accept it.
-	<% end %>
+	<%= link_to "Look At The Comment", post_comment_path(@post, comment) %>
 </p>
 <% end %>
 

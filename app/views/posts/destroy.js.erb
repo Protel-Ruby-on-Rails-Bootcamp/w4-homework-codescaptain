@@ -1,0 +1,4 @@
+$('.delete').bind('ajax:success', function (argument) {
+	console.log('Hello')
+	$(this).closest('tr').fadeOut();
+})

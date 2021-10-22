@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy up_vote down_vote ]
   before_action :is_user?, only: %i[ edit update destroy ]
 
   def is_user?
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @comments = @post.comments.accepteds
+    @comments = @post.comments.accepteds.order(created_at: :desc)
   end
 
   # GET /posts/new
@@ -26,6 +26,24 @@ class PostsController < ApplicationController
   def edit
   end
 
+  def up_vote
+    @post.update!(vote_count: @post.vote_count + 1)
+     
+      respond_to do |format|
+        format.html { redirect_to @post, notice: "Thanksssss" }
+        format.js
+      end
+  end
+
+  def down_vote
+    @post.update!(vote_count: @post.vote_count - 1)
+    
+     respond_to do |format|
+        format.html { redirect_to @post, notice: "Thanksssss" }
+        format.js
+      end
+  end
+
   # POST /posts or /posts.json
   def create
     @post = current_user.posts.new(post_params)
@@ -34,6 +52,7 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to dashboard_index_path, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
+        format.js
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -58,6 +77,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end

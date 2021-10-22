@@ -16,12 +16,11 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
-        <td><%= post.content %></td>
+        <td><%= post_content_truncate(post.content) %></td>
         <td><%= post.post_status %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?', remote: true}, :class => "delete" %></td>
         <td><%= link_to "#{post.comments.size} Show Comments", post_comments_path(post) %></td>
       </tr>
     <% end %>

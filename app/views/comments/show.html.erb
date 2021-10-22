@@ -2,4 +2,11 @@
 <h2>Tilte : <%= @comment.title %>  </h2>
 <h3>Content: </h3>
 <p><%= @comment.content %></p>
-<%= link_to 'Approve', accept_post_comment_path(@post, @comment), method: :patch %>
+<%= @comment.comment_expired? %>
+<%= @comment.created_at %>
+<% if @comment.accepted %>
+	@comment.<%= link_to 'Deny', deny_post_comment_path(@post, @comment), method: :patch %>
+<% else %>
+	<%= link_to 'Accept', accept_post_comment_path(@post, @comment), method: :patch %>
+<% end %>
+

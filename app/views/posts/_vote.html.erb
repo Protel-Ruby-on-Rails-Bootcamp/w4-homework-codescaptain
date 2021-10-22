@@ -1,0 +1,2 @@
+<h5>Total Vote (<%= @post.vote_count %>)</h5>
+ <%= link_to "❤️", up_vote_post_path(@post), method: :patch, remote: true %> | <%= link_to "💔", down_vote_post_path(@post),method: :patch, remote: true %> 

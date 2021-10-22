@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @posts = Post.availables
+    redirect_to feed_profile_index_path if current_user
   end
 end
