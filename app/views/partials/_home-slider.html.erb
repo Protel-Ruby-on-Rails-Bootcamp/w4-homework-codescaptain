@@ -1,0 +1,38 @@
+<% if @best_posts.size > 0
+  slide_number = 0
+  active_number = 0
+  %>
+  <div id="carouselExampleIndicators" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+    <% @best_posts.each do |post| %>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= slide_number %>" 
+      class="<%= slide_number == 0 ? 'active' : '' %>" aria-current="true" aria-label="Slide 1"></button>
+      <% slide_number = slide_number + 1 %>
+    <% end %>
+     
+    </div>
+    <div class="carousel-inner">
+      <% @best_posts.each do |post| %>
+        <div class="carousel-item <%= active_number == 0 ? 'active' : '' %> ">
+          <%= link_to  post_path(post) do %>
+          <img style="max-height:350px;" src="https://picsum.photos/id/<%= rand(1...100) %>/200/300?grayscale&blur=2" class="d-block w-100" alt="...">
+          <% end %>
+          <div class="carousel-caption d-none d-md-block">
+            <h5><%= post.title %></h5>
+            <p><%= post_content_truncate(post.content) %></p>
+            <p> <strong>Author: </strong> <%= post.user.nickname %> </p>
+          </div>
+        </div>
+        <% active_number = active_number + 1 %>
+      <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<% end %>

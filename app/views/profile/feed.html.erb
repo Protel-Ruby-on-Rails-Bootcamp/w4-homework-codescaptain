@@ -1,36 +1,38 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:notice].present? %>
+ <div class="alert alert-success">
+  <%= notice %>
+ </div> 
 
-<div class="container">
-	<div class="row">
-		<h1>Welcome CodesCaptain Project</h1>
-      <table>
-         <thead>
-          <tr>
-            <th>Title</th>
-            <th>Added By</th>
-            <% if user_signed_in? %>
-             <th>Created At</th>
-            <% end %> 
-          </tr>
-        </thead>
+<% end %>
+<h2 class="text-center mb-5">Best Of Posts</h2>
+<%= render 'partials/home-slider' %>
 
-        <tbody>
-          <% @posts.each do |post| %>
-            <tr>
-              <td><%= link_to post.title, post_path(post) %></td>
-              <td>
-                <% if user_signed_in? %>
-                  <%= link_to post.user.nickname, profile_path(post.user) %>
-                <% else %>
-                <% end %>
-              </td>
-              <% if user_signed_in? %>
-               <td><%= post.created_at %></td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+<h2>All Posts</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Added By</th>
+      <% if user_signed_in? %>
+        <th>Created At</th>
+      <% end %> 
+    </tr>
+  </thead>
 
-	</div>
-</div>
+  <tbody>
+    <% @posts.each do |post| %>
+    <tr scope="row">
+        <td><%= link_to post.title, post_path(post) %></td>
+        <td>
+        <% if user_signed_in? %>
+          <%= link_to post.user.nickname, profile_path(post.user) %>
+        <% else %>
+        <% end %>
+        </td>
+        <% if user_signed_in? %>
+          <td><%= post.created_at %></td>
+        <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,6 +1,10 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Posts</h1>
+<% if flash[:notice].present? %>
+ <div class="alert alert-success">
+  <%= notice %>
+ </div> 
+<% end %>
 
 <table>
   <thead>
